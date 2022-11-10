@@ -1,3 +1,4 @@
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -17,9 +18,7 @@ public class FiniteAutomatonValidator {
         if (!isValid(fa)) {
             return false;
         }
-        final Set<String> sourceAndKeyPairs = fa.transitions().stream().map(
-                FiniteAutomatonValidator::getSourceAndKeyPair
-        ).collect(Collectors.toUnmodifiableSet());
+        final Set<String> sourceAndKeyPairs = new HashSet<>(fa.transitions().size());
         for (final Transition transition : fa.transitions()) {
             final String sourceAndKeyPair = getSourceAndKeyPair(transition);
             if (sourceAndKeyPairs.contains(sourceAndKeyPair)) {
