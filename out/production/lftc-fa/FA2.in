@@ -1,0 +1,7 @@
+p,q
+p
+a,b,c
+p,a->q
+p,b->p
+p,c->q
+p,a->p

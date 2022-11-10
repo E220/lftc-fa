@@ -13,7 +13,7 @@ public class Program {
         menu.run();
     }
 
-    private MenuItem stop = new MenuItem() {
+    private final MenuItem stop = new MenuItem() {
         @Override
         public String getKey() {
             return "stop";

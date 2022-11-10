@@ -15,6 +15,7 @@ public class Menu {
     public void run() {
         this.setRunning(true);
         while (this.running) {
+            this.items.values().forEach(item -> System.out.println(item.getKey() + " - " + item.getTitle()));
             final String input = this.readLine();
             if (this.items.containsKey(input)) {
                 this.items.get(input).execute(this);
