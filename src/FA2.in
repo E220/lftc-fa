@@ -1,5 +1,6 @@
 p,q
 p
+q
 a,b,c
 p,a->q
 p,b->p

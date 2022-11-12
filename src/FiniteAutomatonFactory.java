@@ -11,11 +11,16 @@ public class FiniteAutomatonFactory {
     public static FiniteAutomaton fromFile(String filename) throws FileNotFoundException {
         try(final Scanner scanner = new Scanner(new File(filename))) {
             final Set<State> states = readStates(scanner);
+            final State initialState = readState(scanner);
             final Set<State> finalStates = readStates(scanner);
             final Set<Key> alphabet = readAlphabet(scanner);
             final List<Transition> transitionList = readTransitions(scanner);
-            return new FiniteAutomaton(states, alphabet, transitionList, finalStates);
+            return new FiniteAutomaton(states, initialState, finalStates, alphabet, transitionList);
         }
+    }
+
+    private static State readState(Scanner scanner) {
+        return new State(scanner.nextLine());
     }
 
     private static Set<State> readStates(Scanner scanner) {

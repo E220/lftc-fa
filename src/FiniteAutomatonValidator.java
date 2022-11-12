@@ -1,11 +1,9 @@
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class FiniteAutomatonValidator {
     public static boolean isValid(FiniteAutomaton fa) {
-        if (!fa.states().containsAll(fa.finalStates())) {
+        if (!fa.states().contains(fa.initialState()) || !fa.states().containsAll(fa.finalStates())) {
             return false;
         }
         return fa.transitions().stream().allMatch(transition ->
