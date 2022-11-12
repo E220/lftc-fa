@@ -1,11 +1,15 @@
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 
 public class Program {
     private final Menu menu;
 
+    public FiniteAutomaton fa;
+
     public Program() {
         menu = new Menu(Arrays.asList(
-            stop
+                new MenuItem("read", "Read FA", this::readFA),
+                new MenuItem("stop", "Stop program", this::stop)
         ));
     }
 
@@ -13,20 +17,17 @@ public class Program {
         menu.run();
     }
 
-    private final MenuItem stop = new MenuItem() {
-        @Override
-        public String getKey() {
-            return "stop";
+    private void readFA() {
+        menu.printLine("Input file name");
+        final String filename = menu.readLine();
+        try {
+            this.fa = FiniteAutomatonFactory.fromFile("src/" + filename);
+        } catch (FileNotFoundException e) {
+            menu.printLine("File not found");
         }
+    }
 
-        @Override
-        public String getTitle() {
-            return "Stop program";
-        }
-
-        @Override
-        public void execute(Menu menu) {
-            menu.setRunning(false);
-        }
+    private void stop() {
+        menu.setRunning(false);
     };
 }

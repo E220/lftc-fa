@@ -15,10 +15,10 @@ public class Menu {
     public void run() {
         this.setRunning(true);
         while (this.running) {
-            this.items.values().forEach(item -> System.out.println(item.getKey() + " - " + item.getTitle()));
+            this.items.values().forEach(System.out::println);
             final String input = this.readLine();
             if (this.items.containsKey(input)) {
-                this.items.get(input).execute(this);
+                this.items.get(input).run();
             }
         }
     }
@@ -29,5 +29,9 @@ public class Menu {
 
     public String readLine() {
         return this.scanner.nextLine();
+    }
+
+    public void printLine(String string) {
+        System.out.println(string);
     }
 }

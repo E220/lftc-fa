@@ -14,11 +14,7 @@ public class FiniteAutomatonFactory {
             final Set<State> finalStates = readStates(scanner);
             final Set<Key> alphabet = readAlphabet(scanner);
             final List<Transition> transitionList = readTransitions(scanner);
-            final FiniteAutomaton fa = new FiniteAutomaton(states, alphabet, transitionList, finalStates);
-            if (!FiniteAutomatonValidator.isDeterministic(fa)) {
-                return null;
-            }
-            return fa;
+            return new FiniteAutomaton(states, alphabet, transitionList, finalStates);
         }
     }
 
