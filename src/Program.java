@@ -12,6 +12,7 @@ public class Program {
         mainMenu = new Menu(Arrays.asList(
                 new MenuItem("read", "Read FA", this::readFA),
                 new MenuItem("print", "Print FA", this::printFA),
+                new MenuItem("accept", "Accept sequence", this::acceptSequence),
                 new MenuItem("stop", "Stop program", this::stop)
         ));
         printMenu = new Menu(Arrays.asList(
@@ -72,6 +73,24 @@ public class Program {
 
     private void goBack() {
         printMenu.setRunning(false);
+    }
+
+    private void acceptSequence() {
+        if (Objects.isNull(fa)) {
+            mainMenu.printLine("No FA provided");
+            return;
+        }
+        if (!FiniteAutomatonValidator.isDeterministic(fa)) {
+            mainMenu.printLine("FA is not deterministic");
+            return;
+        }
+        mainMenu.printLine("Input sequence");
+        final String sequence = mainMenu.readLine();
+        if (fa.acceptsSequence(sequence)) {
+            mainMenu.printLine("Accepted");
+        } else {
+            mainMenu.printLine("Not accepted");
+        }
     }
 
     private void stop() {

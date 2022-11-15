@@ -1,5 +1,4 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Map;
 
 public class FiniteAutomatonValidator {
     public static boolean isValid(FiniteAutomaton fa) {
@@ -16,18 +15,9 @@ public class FiniteAutomatonValidator {
         if (!isValid(fa)) {
             return false;
         }
-        final Set<String> sourceAndKeyPairs = new HashSet<>(fa.transitions().size());
-        for (final Transition transition : fa.transitions()) {
-            final String sourceAndKeyPair = getSourceAndKeyPair(transition);
-            if (sourceAndKeyPairs.contains(sourceAndKeyPair)) {
-                return false;
-            }
-            sourceAndKeyPairs.add(sourceAndKeyPair);
-        }
-        return true;
-    }
-
-    private static String getSourceAndKeyPair(Transition transition) {
-        return transition.from().string() + "," + transition.key().string();
+        final int transitionMapSize = fa.getTransitionMap().values().stream()
+                .map(Map::size)
+                .reduce(0, Integer::sum);
+        return fa.transitions().size() == transitionMapSize;
     }
 }
